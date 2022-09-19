@@ -1,0 +1,10 @@
+.navbar-toggler {
+    padding: 0;
+}
+.navbar-toggler, .navbar-light .navbar-toggler {
+    color: #242830;
+    border: 1px solid transparent;
+}
+button.navbar-toggler:focus {
+    outline: none;
+}

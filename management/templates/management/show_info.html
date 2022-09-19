@@ -1,0 +1,35 @@
+<table>
+  <th colspan="5">Asset Information</th>
+  <tr>
+    {% for k, v in asset.0.items %}
+    <td>{{k}}</td>
+    {% endfor %}
+  </tr>
+  {% for as in asset %}
+  <tr>
+    <td>{{as.id}}</td>
+    <td>{{as.model_no}}</td>
+    <td>{{as.brand}}</td>
+    <td>{{as.user}}</td>
+    <td>{{as.price}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<table>
+  <th colspan="4">Accessory Information</th>
+  <tr>
+    <td>id</td>
+    <td>model_no</td>
+    <td>accessory_type</td>
+    <td>asset_id</td>
+  </tr>
+  {% for part in parts%} {% for p in part %}
+  <tr>
+    <td>{{p.id}}</td>
+    <td>{{p.model_no}}</td>
+    <td>{{p.accessory_type}}</td>
+    <td>{{p.asset}}</td>
+  </tr>
+  {% endfor %} {% endfor %}
+</table>
