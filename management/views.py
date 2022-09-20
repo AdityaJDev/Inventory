@@ -116,3 +116,8 @@ class DisplayView(View):
             "management/display.html",
             {"assettypes": assets},
         )
+
+
+class DisplayUserView(generic.ListView):
+    model = User
+    template_name = "management/show_users.html"

@@ -22,7 +22,9 @@ class Asset(CoreModel):
     types = models.CharField(choices=asset_type.choices, blank=False, max_length=30)
     model_no = models.CharField(max_length=25)
     brand = models.CharField(max_length=30)
-    user = models.ForeignKey(User, null=True, default=None, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(
+        User, null=True, default=None, blank=True, on_delete=models.DO_NOTHING
+    )
     price = models.FloatField()
 
     def __str__(self):
