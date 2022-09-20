@@ -1,35 +1,60 @@
+{% comment %} {% extends '_blank.html' %} {% endcomment %}
 <table>
-  <th colspan="5">Asset Information</th>
+  <th colspan="8">Asset Information</th>
   <tr>
-    {% for k, v in asset.0.items %}
+    {% for k in header %}
     <td>{{k}}</td>
     {% endfor %}
+    <td>Delete</td>
+    <td>Update</td>
   </tr>
   {% for as in asset %}
   <tr>
     <td>{{as.id}}</td>
+    <td>{{as.types}}</td>
     <td>{{as.model_no}}</td>
     <td>{{as.brand}}</td>
-    <td>{{as.user}}</td>
+    <td>{{as.user.name}}</td>
     <td>{{as.price}}</td>
+    <td>
+      <a href="{% url 'management:delasset' as.id %}">
+        <button>Delete Asset</button></a
+      >
+    </td>
+    <td>
+      <a href="{% url 'management:upasset' as.id %}">
+        <button>Update Asset</button></a
+      >
+    </td>
   </tr>
   {% endfor %}
 </table>
 
 <table>
-  <th colspan="4">Accessory Information</th>
+  <th colspan="6">Accessory Information</th>
   <tr>
-    <td>id</td>
-    <td>model_no</td>
-    <td>accessory_type</td>
-    <td>asset_id</td>
+    {% for l in accheader %}
+    <td>{{l}}</td>
+    {% endfor %}
+    <td>Delete</td>
+    <td>Update</td>
   </tr>
   {% for part in parts%} {% for p in part %}
   <tr>
     <td>{{p.id}}</td>
-    <td>{{p.model_no}}</td>
     <td>{{p.accessory_type}}</td>
     <td>{{p.asset}}</td>
+    <td>{{p.model_no}}</td>
+    <td>
+      <a href="{% url 'management:delaccessory' p.id %}">
+        <button>Delete Accessory</button></a
+      >
+    </td>
+    <td>
+      <a href="{% url 'management:upaccessory' p.id %}">
+        <button>Update Accessory</button></a
+      >
+    </td>
   </tr>
   {% endfor %} {% endfor %}
 </table>

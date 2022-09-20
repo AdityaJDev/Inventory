@@ -1,3 +1,4 @@
+{% comment %} {% extends '_blank.html' %} {% endcomment %}
 <h1>Display</h1>
 {% for asset in assettypes %}
 <a href="{% url 'management:show_info' %}?type={{asset.types}}">
@@ -9,3 +10,9 @@
   <button>Insert Accessory</button></a
 >
 <a href="{% url 'management:user' %}"> <button>Insert User</button></a>
+
+{% comment %}
+<a href="{% url 'management:upuser' %}"> <button>Update User</button></a> {%
+endcomment %} {% comment %}
+<a href="{% url 'management:deluser' %}"> <button>Delete User</button></a>
+{% endcomment %}

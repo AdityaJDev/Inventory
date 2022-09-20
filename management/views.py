@@ -1,87 +1,118 @@
+from django.urls import reverse, reverse_lazy
+from http.client import HTTPResponse
 from django.shortcuts import render
 from django.views import View, generic
-from .models import Accessory, Asset
-from management.forms import AddAccessoryForm, AddAssetForm, AddUserForm
+from .models import Accessory, Asset, User
+from .forms import AddAssetForm
+from django.http import HttpResponseRedirect
 
 
-class AccessoryInsertView(View):
-    def get(self, request):
-        form = AddAccessoryForm()
-        return render(request, "management/show_form.html", {"form": form})
-
-    def post(self, request):
-        message = ""
-        form = AddAccessoryForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            form = AddAccessoryForm()
-            message = "Accessory added"
-        else:
-            form = AddAccessoryForm()
-            message = "Enter valid data"
-        return render(
-            request,
-            "management/show_form.html",
-            {"form": form, "message": message},
-        )
+class AccessoryInsertView(generic.CreateView):
+    model = Accessory
+    fields = "__all__"
+    template_name = "management/show_form.html"
 
 
-class AssetInsertView(View):
-    def get(self, request):
-        form = AddAssetForm()
-        return render(request, "management/show_form.html", {"form": form})
-
-    def post(self, request):
-        message = ""
-        form = AddAssetForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            form = AddAssetForm()
-            message = "Asset added"
-        else:
-            form = AddAssetForm()
-            message = "Enter valid data"
-        return render(
-            request, "management/show_form.html", {"form": form, "message": message}
-        )
+class AccessoryDeleteView(generic.DeleteView):
+    model = Accessory
+    fields = "__all__"
+    template_name = "management/show_form.html"
+    success_url = reverse_lazy("management:display")
 
 
-class UserInsertView(View):
-    def get(self, request):
-        form = AddUserForm()
-        return render(request, "management/show_form.html", {"form": form})
-
-    def post(self, request):
-        message = ""
-        form = AddUserForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            form = AddUserForm()
-            message = "User added"
-        else:
-            form = AddUserForm()
-            message = "Enter valid data"
-        return render(
-            request, "management/show_form.html", {"form": form, "message": message}
-        )
+class AssetDeleteView(generic.DeleteView):
+    model = Asset
+    fields = "__all__"
+    template_name = "management/show_form.html"
+    success_url = reverse_lazy("management:display")
 
 
-class DisplayView(View):
-    def get(self, request):
-        assets = Asset.objects.all().values("id", "types").distinct()
+class UserDeleteView(generic.DeleteView):
+    model = User
+    fields = "__all__"
+    template_name = "management/show_form.html"
+    success_url = reverse_lazy("management:display")
 
-        return render(
-            request,
-            "management/display.html",
-            {"assettypes": assets},
-        )
+
+class AssetInsertView(generic.CreateView):
+    model = Asset
+    fields = "__all__"
+    template_name = "management/show_form.html"
+
+    # def post(self, request):
+    #     form = AddAssetForm(request.POST or None)
+    #     if form.is_valid():
+    #         print(request.POST)
+    #         form.save()
+    #         form = AddAssetForm()
+    #     url = reverse("management:show_info") + "?type=" + request.POST.get("types")
+    #     print(url)
+    #     return HttpResponseRedirect(url)
+
+
+class UserInsertView(generic.CreateView):
+    model = User
+    fields = "__all__"
+    template_name = "management/show_form.html"
+
+
+class AssetUpdateView(generic.UpdateView):
+    model = Asset
+    fields = "__all__"
+    template_name = "management/show_form.html"
+
+
+class UserUpdateView(generic.UpdateView):
+    model = User
+    fields = "__all__"
+    template_name = "management/show_form.html"
+
+
+class AccessoryUpdateView(generic.UpdateView):
+    model = Accessory
+    fields = "__all__"
+    template_name = "management/show_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["url"] = ""
+        return context
 
 
 class AssetShow(View):
     def get(self, request):
         _type = self.request.GET.get("type")
-        info = Asset.objects.filter(types=_type).values()
-        accessories = [Accessory.objects.filter(asset_id=x["id"]) for x in info]
+        info = Asset.objects.filter(types=_type)
+        accessories = [Accessory.objects.filter(asset_id=x.id) for x in info]
+        accheaderlist = []
+        headerlist = [
+            y.name
+            for y in info[0]._meta.fields
+            if (y.name != "dtm_created") and (y.name != "dtm_updated")
+        ]
+        if accessories[0].exists():
+            accheaderlist = [
+                y.name
+                for y in accessories[0][0]._meta.fields
+                if (y.name != "dtm_created") and (y.name != "dtm_updated")
+            ]
         return render(
-            request, "management/show_info.html", {"asset": info, "parts": accessories}
+            request,
+            "management/show_info.html",
+            {
+                "asset": info,
+                "parts": accessories,
+                "header": headerlist,
+                "accheader": accheaderlist,
+            },
+        )
+
+
+class DisplayView(View):
+    def get(self, request):
+        assets = Asset.objects.all().values("types").distinct()
+        return render(
+            request,
+            "management/display.html",
+            {"assettypes": assets},
         )
