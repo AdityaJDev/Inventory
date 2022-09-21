@@ -1,0 +1,49 @@
+{% extends '_blank.html' %} {%block qux_content%}
+<style>
+  td,
+  th {
+    padding: px;
+    spacing: 10px;
+    color: green;
+    border: solid;
+  }
+  h3 {
+    text-align: center;
+    padding: 30px;
+  }
+</style>
+<h3>Accessories</h3>
+<div class="col">
+  {% if parts %}
+  <table style="margin-left: auto; margin-right: auto; text-align: center">
+    <th colspan="6">Accessory Information</th>
+    <tr>
+      {% for l in header %}
+      <td>{{l}}</td>
+      {% endfor %}
+      <td>Delete</td>
+      <td>Update</td>
+    </tr>
+    {% for p in parts %}
+    <tr>
+      <td>{{p.id}}</td>
+      <td>{{p.accessory_type}}</td>
+      <td>{{p.asset}}</td>
+      <td>{{p.model_no}}</td>
+      <td>
+        <a href="{% url 'management:delaccessory' p.id %}">
+          <button class="btn btn-primary">Delete Accessory</button></a
+        >
+      </td>
+      <td>
+        <a href="{% url 'management:upaccessory' p.id %}">
+          <button class="btn btn-primary">Update Accessory</button></a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  <h3>{{message}}</h3>
+</div>
+{% endblock %}

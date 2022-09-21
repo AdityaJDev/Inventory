@@ -1,9 +1,12 @@
 {% extends '_blank.html' %} {% block qux_content %}
-<form method="post" action="{{url}}">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="Submit" />
-</form>
-{{message}} {% endblock %}
+<div class="container d-flex justify-content-center p-3"><h4>{{message}}<h4></div>
+<div class="container d-flex justify-content-center pt-5">
+  <form method="post" action="{{url}}">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+{% endblock %}

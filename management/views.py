@@ -19,17 +19,22 @@ class AccessoryDeleteView(generic.DeleteView):
     template_name = "management/show_form.html"
     success_url = reverse_lazy("management:display")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["message"] = "Are you sure you want to delete ?"
+        return context
+
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.get(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().get(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
             )
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.post(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().post(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
@@ -42,17 +47,22 @@ class AssetDeleteView(generic.DeleteView):
     template_name = "management/show_form.html"
     success_url = reverse_lazy("management:display")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["message"] = "Are you sure you want to delete ?"
+        return context
+
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.get(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().get(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
             )
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.post(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().post(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
@@ -65,17 +75,22 @@ class UserDeleteView(generic.DeleteView):
     template_name = "management/show_form.html"
     success_url = reverse_lazy("management:display")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["message"] = "Are you sure you want to delete ?"
+        return context
+
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.get(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().get(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
             )
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.post(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().post(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
@@ -104,16 +119,16 @@ class UserInsertView(generic.CreateView):
     template_name = "management/show_form.html"
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.get(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().get(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
             )
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.post(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().post(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
@@ -126,16 +141,16 @@ class AssetUpdateView(generic.UpdateView):
     template_name = "management/show_form.html"
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.get(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().get(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
             )
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.post(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().post(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
@@ -148,16 +163,16 @@ class UserUpdateView(generic.UpdateView):
     template_name = "management/show_form.html"
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.get(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().get(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
             )
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_superuser():
-            return super.post(self, request, *args, **kwargs)
+        if request.user.is_superuser:
+            return super().post(self, request, *args, **kwargs)
         else:
             return render(
                 request, "management/show_form.html", {"message": "Access Denied"}
@@ -174,27 +189,17 @@ class AssetShow(View):
     def get(self, request):
         _type = self.request.GET.get("type")
         info = Asset.objects.filter(types=_type)
-        accessories = [Accessory.objects.filter(asset_id=x.id) for x in info]
-        accheaderlist = []
         headerlist = [
             y.name
             for y in info[0]._meta.fields
             if (y.name != "dtm_created") and (y.name != "dtm_updated")
         ]
-        if accessories[0].exists():
-            accheaderlist = [
-                y.name
-                for y in accessories[0][0]._meta.fields
-                if (y.name != "dtm_created") and (y.name != "dtm_updated")
-            ]
         return render(
             request,
             "management/show_info.html",
             {
                 "asset": info,
-                "parts": accessories,
                 "header": headerlist,
-                "accheader": accheaderlist,
             },
         )
 
@@ -212,3 +217,24 @@ class DisplayView(View):
 class DisplayUserView(generic.ListView):
     model = Users
     template_name = "management/show_users.html"
+
+
+class AccessoryShow(View):
+    def get(self, request):
+        pk = self.request.GET.get("pk")
+        message = ""
+        accessories = Accessory.objects.filter(asset_id=pk)
+        accheaderlist = []
+        if accessories.exists():
+            accheaderlist = [
+                y.name
+                for y in accessories[0]._meta.fields
+                if (y.name != "dtm_created") and (y.name != "dtm_updated")
+            ]
+        else:
+            message = "No accessories for this asset"
+        return render(
+            request,
+            "management/parts.html",
+            {"parts": accessories, "header": accheaderlist, "message": message},
+        )

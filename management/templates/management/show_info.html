@@ -1,61 +1,58 @@
 {% extends '_blank.html' %} {%block qux_content%}
-<table>
-  <th colspan="8">Asset Information</th>
-  <tr>
-    {% for k in header %}
-    <td>{{k}}</td>
-    {% endfor %}
-    <td>Delete</td>
-    <td>Update</td>
-  </tr>
-  {% for as in asset %}
-  <tr>
-    <td>{{as.id}}</td>
-    <td>{{as.types}}</td>
-    <td>{{as.model_no}}</td>
-    <td>{{as.brand}}</td>
-    <td>{{as.user.name}}</td>
-    <td>{{as.price}}</td>
-    <td>
-      <a href="{% url 'management:delasset' as.id %}">
-        <button>Delete Asset</button></a
-      >
-    </td>
-    <td>
-      <a href="{% url 'management:upasset' as.id %}">
-        <button>Update Asset</button></a
-      >
-    </td>
-  </tr>
-  {% endfor %}
-</table>
-
-<table>
-  <th colspan="6">Accessory Information</th>
-  <tr>
-    {% for l in accheader %}
-    <td>{{l}}</td>
-    {% endfor %}
-    <td>Delete</td>
-    <td>Update</td>
-  </tr>
-  {% for part in parts%} {% for p in part %}
-  <tr>
-    <td>{{p.id}}</td>
-    <td>{{p.accessory_type}}</td>
-    <td>{{p.asset}}</td>
-    <td>{{p.model_no}}</td>
-    <td>
-      <a href="{% url 'management:delaccessory' p.id %}">
-        <button>Delete Accessory</button></a
-      >
-    </td>
-    <td>
-      <a href="{% url 'management:upaccessory' p.id %}">
-        <button>Update Accessory</button></a
-      >
-    </td>
-  </tr>
-  {% endfor %} {% endfor %}
-</table>
+<style>
+  td,
+  th {
+    padding: px;
+    spacing: 10px;
+    color: green;
+    border: solid;
+  }
+  h3 {
+    text-align: center;
+    padding: 30px;
+  }
+</style>
+<h3>Available Assets</h3>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table style="margin-left: auto; margin-right: auto; text-align: center">
+        <th colspan="9">Asset Information</th>
+        <tr>
+          {% for k in header %}
+          <td>{{k}}</td>
+          {% endfor %}
+          <td>Delete</td>
+          <td>Update</td>
+          <td>Accessories</td>
+        </tr>
+        {% for as in asset %}
+        <tr>
+          <td>{{as.id}}</td>
+          <td>{{as.types}}</td>
+          <td>{{as.model_no}}</td>
+          <td>{{as.brand}}</td>
+          <td>{{as.user.name}}</td>
+          <td>{{as.price}}</td>
+          <td>
+            <a href="{% url 'management:delasset' as.id %}">
+              <button class="btn btn-primary">Delete Asset</button></a
+            >
+          </td>
+          <td>
+            <a href="{% url 'management:upasset' as.id %}">
+              <button class="btn btn-primary">Update Asset</button></a
+            >
+          </td>
+          <td>
+            <a href="{% url 'management:shoaccessories' %}?pk={{as.id}}">
+              <button class="btn btn-primary">View Accessories</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
 {%endblock%}
