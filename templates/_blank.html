@@ -1,5 +1,7 @@
-{% extends '_seo.html' %} {% load static i18n qux %} {% lineless %} {% block
-stylesheets %}
+{% extends '_seo.html' %} 
+{% load static i18n qux %} 
+{% lineless %} 
+{% block stylesheets %}
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
 <link rel="stylesheet" href="{% static 'css/site.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/qux.css' %}" />
@@ -8,7 +10,11 @@ stylesheets %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}" />
 <!-- Overloaded bootstrap -->
 <link rel="stylesheet" href="{% static 'css/qux-bootstrap.css' %}" />
-{% endblock %} {% block javascript %}
+{% endblock %} 
+
+{% block qux_content %} {%endblock%} 
+
+{% block javascript %}
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/all.js' %}"></script>
 <script
@@ -17,4 +23,5 @@ stylesheets %}
 ></script>
 <script type="text/javascript" src="{% static 'js/moment.js' %}"></script>
 
-{% endblock %} {% endlineless %}
+{% endblock %} 
+{% endlineless %}

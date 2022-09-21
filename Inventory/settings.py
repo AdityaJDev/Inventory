@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,3 +137,9 @@ LOGOUT_URL = "/logout/"
 LOGIN_REDIRECT_URL = "/assets/"
 LOGOUT_REDIRECT_URL = "/login/"
 SHOW_USERNAME_SIGNUP = False
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [
+    ("css", os.path.join(BASE_DIR, "qux/static/bootstrap/css")),
+    ("js", os.path.join(BASE_DIR, "qux/static/bootstrap/js")),
+]

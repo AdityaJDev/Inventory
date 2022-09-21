@@ -1,3 +1,6 @@
 from django.contrib import admin
+from management.models import *
 
-# Register your models here.
+admin.site.register(Users)
+admin.site.register(Accessory)
+admin.site.register(Asset)

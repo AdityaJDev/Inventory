@@ -10,7 +10,7 @@ class AddAssetForm(ModelForm):
 
 class AddUserForm(ModelForm):
     class Meta:
-        model = User
+        model = Users
         fields = "__all__"
 
 

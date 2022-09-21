@@ -2,11 +2,12 @@ from tkinter import CASCADE
 from django.db import models
 from qux.core.models import CoreModel
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
-class User(CoreModel):
+class Users(User):
     name = models.CharField(max_length=20)
-    eid = models.CharField(max_length=10, primary_key=True)
+    eid = models.CharField(max_length=10)
 
     def __str__(self):
         return self.name

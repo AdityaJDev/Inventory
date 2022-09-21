@@ -1,4 +1,4 @@
-{% comment %} {% extends '_blank.html' %} {% endcomment %}
+{% extends '_blank.html' %} {% block qux_content %}
 <form method="post" action="{{url}}">
   {% csrf_token %}
   <table>
@@ -6,4 +6,4 @@
   </table>
   <input type="submit" value="Submit" />
 </form>
-{{message}}
+{{message}} {% endblock %}
