@@ -2,7 +2,7 @@
 <h1>Users</h1>
 <ul>
   {% for user in object_list %}
-  <li>{{ user.name }} - {{ user.eid }}</li>
+  <li>{{ user.first_name }} {{ user.last_name }} -> {{user.username}} -> {{user.email}}</li>
   <li>
     <a href="{% url 'management:upuser' user.id%}">
       <button>Update User</button></a

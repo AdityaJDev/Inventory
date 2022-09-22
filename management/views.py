@@ -2,7 +2,8 @@ from django.urls import reverse, reverse_lazy
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.views import View, generic
-from .models import Accessory, Asset, User, Users
+from .models import Accessory, Asset
+from django.contrib.auth.models import User
 from .forms import AddAssetForm
 from django.http import HttpResponseRedirect
 
@@ -70,7 +71,7 @@ class AssetDeleteView(generic.DeleteView):
 
 
 class UserDeleteView(generic.DeleteView):
-    model = Users
+    model = User
     fields = "__all__"
     template_name = "management/show_form.html"
     success_url = reverse_lazy("management:display")
@@ -114,9 +115,10 @@ class AssetInsertView(generic.CreateView):
 
 
 class UserInsertView(generic.CreateView):
-    model = Users
+    model = User
     fields = "__all__"
     template_name = "management/show_form.html"
+    success_url = reverse_lazy("management:display")
 
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
@@ -139,6 +141,7 @@ class AssetUpdateView(generic.UpdateView):
     model = Asset
     fields = "__all__"
     template_name = "management/show_form.html"
+    success_url = reverse_lazy("management:display")
 
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
@@ -158,7 +161,7 @@ class AssetUpdateView(generic.UpdateView):
 
 
 class UserUpdateView(generic.UpdateView):
-    model = Users
+    model = User
     fields = "__all__"
     template_name = "management/show_form.html"
 
@@ -215,7 +218,7 @@ class DisplayView(View):
 
 
 class DisplayUserView(generic.ListView):
-    model = Users
+    model = User
     template_name = "management/show_users.html"
 
 

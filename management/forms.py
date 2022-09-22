@@ -1,5 +1,6 @@
 from management.models import *
 from django.forms import ModelForm
+from django.contrib.auth.models import User
 
 
 class AddAssetForm(ModelForm):
@@ -10,7 +11,7 @@ class AddAssetForm(ModelForm):
 
 class AddUserForm(ModelForm):
     class Meta:
-        model = Users
+        model = User
         fields = "__all__"
 
 
