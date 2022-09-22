@@ -1,18 +1,46 @@
 {% extends '_blank.html' %} {%block qux_content%}
-<h1>Users</h1>
-<ul>
-  {% for user in object_list %}
-  <li>{{ user.first_name }} {{ user.last_name }} -> {{user.username}} -> {{user.email}}</li>
-  <li>
-    <a href="{% url 'management:upuser' user.id%}">
-      <button>Update User</button></a
-    >
-  </li>
-  <li>
-    <a href="{% url 'management:deluser' user.id%}">
-      <button>Delete User</button></a
-    >
-  </li>
-  {% empty %} {% endfor %}
-</ul>
-{%endblock%}
+<style>
+  td,
+  th {
+    padding: px;
+    spacing: 10px;
+    color: green;
+    border: solid;
+  }
+  h3 {
+    text-align: center;
+    padding: 30px;
+  }
+</style>
+<h3>Users</h3>
+
+<div class="col">
+    <table style="margin-left: auto; margin-right: auto; text-align: center">
+    <tr>
+      <td>User</td>
+      <td>Username</td>
+      <td>Email</td>
+      <td>Delete</td>
+      <td>Update</td>
+    </tr>
+    {% for user in object_list %}
+    <tr>
+      <td>{{ user.first_name }} {{ user.last_name }}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <td>
+        <a href="{% url 'management:deluser' user.id %}">
+          <button class="btn btn-primary">Delete User</button></a
+        >
+      </td>
+      <td>
+        <a href="{% url 'management:upuser' user.id %}">
+          <button class="btn btn-primary">Update User</button></a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <h3>{{message}}</h3>
+</div>
+{% endblock %}

@@ -74,7 +74,7 @@ class UserDeleteView(generic.DeleteView):
     model = User
     fields = "__all__"
     template_name = "management/show_form.html"
-    success_url = reverse_lazy("management:display")
+    success_url = reverse_lazy("management:userlist")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -164,6 +164,7 @@ class UserUpdateView(generic.UpdateView):
     model = User
     fields = "__all__"
     template_name = "management/show_form.html"
+    success_url = reverse_lazy("management:userlist")
 
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
@@ -220,6 +221,11 @@ class DisplayView(View):
 class DisplayUserView(generic.ListView):
     model = User
     template_name = "management/show_users.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context
 
 
 class AccessoryShow(View):
