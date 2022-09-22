@@ -118,7 +118,7 @@ class UserInsertView(generic.CreateView):
     model = User
     fields = "__all__"
     template_name = "management/show_form.html"
-    success_url = reverse_lazy("management:display")
+    success_url = reverse_lazy("management:userlist")
 
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
