@@ -2,7 +2,7 @@ from django.urls import reverse, reverse_lazy
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.views import View, generic
-from .models import Accessory, Asset
+from .models import Accessory, Asset, AssetTypes
 from django.contrib.auth.models import User
 from .forms import AddAssetForm
 from django.http import HttpResponseRedirect
@@ -210,12 +210,20 @@ class AssetShow(View):
 
 class DisplayView(View):
     def get(self, request):
-        assets = Asset.objects.all().values("types").distinct()
+        assets = AssetTypes.objects.filter(
+            id__in=[x["types"] for x in Asset.objects.all().values("types").distinct()]
+        )
         return render(
             request,
             "management/display.html",
             {"assettypes": assets},
         )
+
+
+class InsertAssetType(generic.CreateView):
+    model = AssetTypes
+    fields = "__all__"
+    template_name = "management/show_form.html"
 
 
 class DisplayUserView(generic.ListView):

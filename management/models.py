@@ -5,11 +5,18 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
+class AssetTypes(CoreModel):
+    type_name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.type_name
+
+    def get_absolute_url(self):
+        return reverse("management:display")
+
+
 class Asset(CoreModel):
-    asset_type = models.TextChoices(
-        "Assets", "CPU Keyboard Monitor Mouse Printer Projector"
-    )
-    types = models.CharField(choices=asset_type.choices, blank=False, max_length=30)
+    types = models.ForeignKey(AssetTypes, on_delete=models.DO_NOTHING)
     model_no = models.CharField(max_length=25)
     brand = models.CharField(max_length=30)
     user = models.ForeignKey(

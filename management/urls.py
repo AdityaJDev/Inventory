@@ -7,6 +7,7 @@ app_name = "management"
 urlpatterns = [
     path("", DisplayView.as_view(), name="display"),
     path("acc", AccessoryShow.as_view(), name="shoaccessories"),
+    path("types", InsertAssetType.as_view(), name="typesofasset"),
     path("users/", DisplayUserView.as_view(), name="userlist"),
     path("info/", AssetShow.as_view(), name="show_info"),
     path("insert_user/", UserInsertView.as_view(), name="user"),

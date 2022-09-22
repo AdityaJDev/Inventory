@@ -13,38 +13,24 @@
   }
 </style>
 <h3>Accessories</h3>
-<div class="col">
-  {% if parts %}
-  <table style="margin-left: auto; margin-right: auto; text-align: center">
-    <th colspan="6">Accessory Information</th>
-    <tr>
-      {% for l in header %}
-      <td>{{l}}</td>
-      {% endfor %}
-      <td>Delete</td>
-      <td>Update</td>
-    </tr>
-    {% endfor %}
-    {% for p in parts %}
-    <tr>
-      <td>{{p.id}}</td>
-      <td>{{p.accessory_type}}</td>
-      <td>{{p.asset}}</td>
-      <td>{{p.model_no}}</td>
-      <td>
-        <a href="{% url 'management:delaccessory' p.id %}">
-          <button class="btn btn-primary">Delete Accessory</button></a
-        >
-      </td>
-      <td>
-        <a href="{% url 'management:upaccessory' p.id %}">
-          <button class="btn btn-primary">Update Accessory</button></a
-        >
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% endif %}
-  <h3>{{message}}</h3>
+{% if parts %}
+<div class = "row">
+{% for p in parts %}
+<div class = "col d-flex justify-content-center">
+<div class="card text-center" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{p.accessory_type}}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Id - {{p.id}}</li>
+    <li class="list-group-item">Model No. - {{p.model_no}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'management:delaccessory' p.id %}" class="btn btn-primary">Delete Accessory</a>
+    <a href="{% url 'management:upaccessory' p.id %}" class="btn btn-primary">Update Accessory</a>
+  </div>
 </div>
-{% endblock %}
+</div>
+{% endfor %}
+</div>
+{% endif %}{% endblock %}

@@ -4,8 +4,8 @@
   <div class="row my-2">
     {% for asset in assettypes %}
     <div class="col d-flex justify-content-center">
-      <a href="{% url 'management:show_info' %}?type={{asset.types}}">
-        <button class="btn btn-primary">{{asset.types}}</button>
+      <a href="{% url 'management:show_info' %}?type={{asset.id}}">
+        <button class="btn btn-primary">{{asset.type_name}}</button>
       </a>
     </div>
     {% endfor %}
@@ -25,9 +25,15 @@
     <div class="col d-flex justify-content-center">
       <a href="{% url 'management:user' %}">
         <button class="btn btn-primary">Insert User</button></a
-      ><br />
+      >
+    </div>
+    <div class="col d-flex justify-content-center">
+      <a href="{% url 'management:typesofasset' %}">
+        <button class="btn btn-primary">Insert Type of Asset</button></a
+      >
     </div>
   </div>
+  <br>
   <div class="row my-2">
     <div class="col d-flex justify-content-center">
       <a href="{% url 'management:userlist' %}"
