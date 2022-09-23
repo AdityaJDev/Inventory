@@ -2,9 +2,8 @@
 <style>
   td,
   th {
-    padding: px;
+    padding: 20px;
     spacing: 10px;
-    color: green;
     border: solid;
   }
   h3 {
@@ -32,7 +31,7 @@
           <td>{{as.types}}</td>
           <td>{{as.model_no}}</td>
           <td>{{as.brand}}</td>
-          <td>{{as.user.name}}</td>
+          <td>{{as.user}}</td>
           <td>{{as.price}}</td>
           <td>
             <a href="{% url 'management:delasset' as.id %}">

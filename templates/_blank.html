@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}" />
 <!-- Overloaded bootstrap -->
 <link rel="stylesheet" href="{% static 'css/qux-bootstrap.css' %}" />
+{{block.super}}
 {% endblock %} 
 
 {% block qux_content %} {%endblock%} 
@@ -22,6 +23,6 @@
   src="{% static 'js/bootstrap.bundle.min.js' %}"
 ></script>
 <script type="text/javascript" src="{% static 'js/moment.js' %}"></script>
-
+{{block.super}}
 {% endblock %} 
 {% endlineless %}

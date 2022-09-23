@@ -141,5 +141,9 @@ SHOW_USERNAME_SIGNUP = False
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     ("css", os.path.join(BASE_DIR, "qux/static/bootstrap/css")),
+    ("css", os.path.join(BASE_DIR, "common/css")),
     ("js", os.path.join(BASE_DIR, "qux/static/bootstrap/js")),
+    ("js", os.path.join(BASE_DIR, "common/js")),
+    ("logo", os.path.join(BASE_DIR, "common/logo")),
+    ("fonts", os.path.join(BASE_DIR, "common/fontawesome/webfonts")),
 ]
