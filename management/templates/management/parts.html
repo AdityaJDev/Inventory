@@ -4,7 +4,6 @@
   th {
     padding: 20px;
     spacing: 10px;
-    border: solid;
   }
   h3 {
     text-align: center;
@@ -12,18 +11,20 @@
   }
 </style>
 <h3>Accessories</h3>
+<div class="d-flex justify-content-center">
+  <a href="{% url 'management:accessory' pk%}">
+    <button class="btn btn-primary">Insert Accessory</button></a
+  >
+</div>
 {% if parts %}
 <div class="container">
   <div class="row">
     <div class="col">
       <table style="margin-left: auto; margin-right: auto; text-align: center">
-        <th colspan="9">Accessory Information</th>
         <tr>
           {% for k in header %}
-          <td>{{k}}</td>
+          <th>{{k}}</th>
           {% endfor %}
-          <td>Delete</td>
-          <td>Update</td>
         </tr>
         {% for as in parts %}
         <tr>
@@ -32,12 +33,12 @@
           <td>{{as.asset}}
           <td>{{as.model_no}}</td>
           <td>
-            <a href="{% url 'management:delasset' as.id %}">
+            <a href="{% url 'management:delaccessory' as.id %}">
               <button class="btn btn-primary">Delete Accessory</button></a
             >
           </td>
           <td>
-            <a href="{% url 'management:upasset' as.id %}">
+            <a href="{% url 'management:upaccessory' as.id %}">
               <button class="btn btn-primary">Update Accessory</button></a
             >
           </td>
