@@ -2,7 +2,7 @@
 <style>
   td,
   th {
-    padding: 20px;
+    padding: 10px;
     spacing: 10px;
     {% comment %} border: solid; {% endcomment %}
   }
@@ -26,9 +26,7 @@
           {% for k in header %}
           <th>{{k}}</th>
           {% endfor %}
-          {% comment %} <th>Delete</th>
-          <th>Update</th>
-          <th>Accessories</th> {% endcomment %}
+          <th colspan=3>Actions<th>
         </tr>
         {% for as in asset %}
         <tr>
@@ -37,20 +35,20 @@
           <td>{{as.model_no}}</td>
           <td>{{as.brand}}</td>
           <td>{{as.user}}</td>
-          <td style="text-align: right">{{as.price}}</td>
+          <td>{{as.price}}</td>
           <td>
             <a href="{% url 'management:delasset' as.id %}">
-              <button class="btn btn-primary">Delete Asset</button></a
+              <button class="btn btn-primary">Delete</button></a
             >
           </td>
           <td>
             <a href="{% url 'management:upasset' as.id %}">
-              <button class="btn btn-primary">Update Asset</button></a
+              <button class="btn btn-primary">Update</button></a
             >
           </td>
           <td>
             <a href="{% url 'management:shoaccessories' as.id %}">
-              <button class="btn btn-primary">View Accessories</button>
+              <button class="btn btn-primary">Accessories</button>
             </a>
           </td>
         </tr>
