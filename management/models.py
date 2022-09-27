@@ -11,9 +11,6 @@ class AssetTypes(CoreModel):
     def __str__(self):
         return self.type_name
 
-    def get_absolute_url(self):
-        return reverse("management:show_info")
-
 
 class Asset(CoreModel):
     types = models.ForeignKey(

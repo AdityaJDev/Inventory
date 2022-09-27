@@ -1,18 +1,20 @@
 {% extends '_blank.html' %} {% block qux_content %}
 {%if message == "Access Denied"%}
-<div class="container d-flex justify-content-center p-3"><h4>{{message}}<h4></div>
+<div class="container d-flex justify-content-center p-3"><h4>{{message}}</h4></div>
   <div class="container d-flex justify-content-center p-3">
     <input type="button" value="Go Back" style="margin:15px" onclick="history.back()"></div>
   {%else%}
-  <div class="container d-flex justify-content-center p-3"><h4>{{message}}<h4></div>
+  <div class="container d-flex justify-content-center p-3"><h4>{{message}}</h4></div>
   <div class="row">
     <div class="col"></div>
 <div class="col d-flex justify-content-center pt-5" style = "width:30%; border:1px solid black; border-radius:5px; margin:20px;padding:20px;">
   <form method="post">
     {% csrf_token %}
       {{ form.as_p }}
-  </div><div class="col"></div>
-</div><div class="row"><div class="col"></div>
+  </div>
+  <div class="col"></div>
+</div>
+<div class="row"><div class="col"></div>
   <div class="col d-flex justify-content-center p-3">
     <input type="submit" value="Submit" style="margin:15px">
     <input type="button" value="Cancel" style="margin:15px" onclick="history.back()">

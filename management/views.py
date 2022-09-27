@@ -1,5 +1,4 @@
 from django.urls import reverse, reverse_lazy
-from http.client import HTTPResponse
 from django.shortcuts import render
 from django.views import View, generic
 from .models import Accessory, Asset, AssetTypes
@@ -88,16 +87,6 @@ class AssetInsertView(generic.CreateView):
     fields = "__all__"
     template_name = "management/show_form.html"
 
-    # def post(self, request):
-    #     form = AddAssetForm(request.POST or None)
-    #     if form.is_valid():
-    #         print(request.POST)
-    #         form.save()
-    #         form = AddAssetForm()
-    #     url = reverse("management:show_info") + "?type=" + request.POST.get("types")
-    #     print(url)
-    #     return HttpResponseRedirect(url)
-
 
 class AssetUpdateView(generic.UpdateView):
     model = Asset
@@ -164,17 +153,13 @@ class DisplayView(View):
         )
 
 
-class InsertAssetType(generic.CreateView):
-    model = AssetTypes
-    fields = "__all__"
-    template_name = "management/show_form.html"
-
-
 class AccessoryShow(View):
     def get(self, request, **kwargs):
         pk = kwargs["pk"]
         message = ""
         accessories = Accessory.objects.filter(asset_id=pk)
+        asset = Asset.objects.filter(id=pk).values()
+        assettype = AssetTypes.objects.get(id=asset[0]["types_id"])
         accheaderlist = []
         if accessories.exists():
             accheaderlist = [
@@ -192,5 +177,7 @@ class AccessoryShow(View):
                 "header": accheaderlist,
                 "message": message,
                 "pk": pk,
+                "asset": asset,
+                "type": assettype,
             },
         )

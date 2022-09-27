@@ -6,7 +6,6 @@ app_name = "management"
 
 urlpatterns = [
     path("acc/<int:pk>", AccessoryShow.as_view(), name="shoaccessories"),
-    path("types", InsertAssetType.as_view(), name="typesofasset"),
     path("", AssetShow.as_view(), name="show_info"),
     path("insert_asset/", AssetInsertView.as_view(), name="asset"),
     path("insert_accessory<int:pk>", AccessoryInsertView.as_view(), name="accessory"),
