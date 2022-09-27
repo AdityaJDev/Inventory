@@ -31,6 +31,10 @@ class AccessoryDeleteView(generic.DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["message"] = "Are you sure you want to delete ?"
+        accessory = Accessory.objects.filter(id=self.object.id).values()
+        accessorytype = Asset.objects.get(id=self.object.asset_id)
+        context["list"] = accessory
+        context["type"] = accessorytype
         return context
 
     def get(self, request, *args, **kwargs):
@@ -63,6 +67,10 @@ class AssetDeleteView(generic.DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["message"] = "Are you sure you want to delete ?"
+        asset = Asset.objects.filter(id=self.object.id).values()
+        assettype = AssetTypes.objects.get(id=self.object.types_id)
+        context["type"] = assettype
+        context["list"] = asset
         return context
 
     def get(self, request, *args, **kwargs):

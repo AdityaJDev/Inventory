@@ -3,7 +3,25 @@
 <div class="container d-flex justify-content-center p-3"><h4>{{message}}</h4></div>
   <div class="container d-flex justify-content-center p-3">
     <input type="button" value="Go Back" style="margin:15px" onclick="history.back()"></div>
-  {%else%}
+  {% else %}  
+  {%if message == "Are you sure you want to delete ?"%}
+  <div class="container d-flex justify-content-center p-3"><h4>{{message}}</h4></div>
+  <div class="container d-flex justify-content-center">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h4 class="card-title d-flex justify-content-center">{{type}}</h4>
+        <hr>
+        <ul class="list-group list-group-flush">
+          {% for y in list %}
+          {% for k,v in y.items %}
+          <li class="list-group-item"><b>{{k}}</b>: {{v}}</li>
+          {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</div>
+{%else%}
   <div class="row">
     <div class="col"></div>
 <div class="col d-flex justify-content-center pt-5" style = "width:30%;margin:20px;padding:20px;">
@@ -15,7 +33,7 @@
   </div>
   <div class="col"></div>
 </div>
-<div class="container d-flex justify-content-center p-3"><h4>{{message}}</h4></div>
+{% endif %}
 <div class="row"><div class="col"></div>
   <div class="col d-flex justify-content-center p-3">
     <input class="btn btn-primary m-2" type="submit" value="Submit" style="margin:15px">
